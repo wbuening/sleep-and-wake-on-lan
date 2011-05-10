@@ -26,30 +26,48 @@ namespace SleepOnLan
             comboBox1.SelectedIndex = Settings.Load(SettingsPath);
         }
 
+        /// <summary>
+        /// If we change the action we should save the changes.
+        /// </summary>
         private void comboBox1_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             _doWork.State = comboBox1.SelectedIndex;
             Settings.Save(SettingsPath, comboBox1.SelectedIndex.ToString());
         }
 
+        /// <summary>
+        /// That's our tray icon. We can show and hide main window of our program by clicking on it.
+        /// </summary>
         private NotifyIcon TrayIcon = new NotifyIcon();
 
+        /// <summary>
+        /// Set parameters and create icon in tray.
+        /// </summary>
         private void CreateTrayIcon()
         {
-            TrayIcon.Icon = System.Drawing.Icon.FromHandle(Properties.Resources.Icon.GetHicon()); // Set picture of icon.
-            TrayIcon.Text = "Click to Show/Hide"; // Tooltip text on tray icon.
+            // Set picture of icon.
+            TrayIcon.Icon = System.Drawing.Icon.FromHandle(Properties.Resources.Icon.GetHicon());
+            // Set tooltip text on tray icon.
+            TrayIcon.Text = "Click to Show/Hide";
 
+
+            // We will catch left mouse button click.
             TrayIcon.Click += delegate(object sender, EventArgs e)
             {
                 if (((MouseEventArgs)e).Button == MouseButtons.Left)
                 {
+                    // If user clicked on icon we will call this function.
                     ShowHideMainWindow(sender, null);
                 }
             };
 
+            // Let's make our icon visible.
             TrayIcon.Visible = true;
         }
 
+        /// <summary>
+        /// We will show programs main window if it's minimized or hide it if it's in normal state.
+        /// </summary>
         private void ShowHideMainWindow(object sender, RoutedEventArgs e)
         {
             if (IsVisible)

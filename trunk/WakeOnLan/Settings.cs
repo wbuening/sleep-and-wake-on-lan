@@ -7,6 +7,11 @@ namespace WakeOnLan
 {
     public static class Settings
     {
+        /// <summary>
+        /// Load settings from file.
+        /// </summary>
+        /// <param name="path">File path.</param>
+        /// <returns>List of settings. Each list item corresponds to each string in file.</returns>
         public static List<string> Load(string path)
         {
             var list = new List<string>();

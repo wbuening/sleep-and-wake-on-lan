@@ -7,18 +7,31 @@ namespace WakeOnLan
 {
     public static class Logic
     {
-        public static void Send(byte[] packet, string text)
+        /// <summary>
+        /// Send some data through the UDP protocol on port 9.
+        /// </summary>
+        /// <param name="packet">Input data.</param>
+        /// <param name="IP">IP to send.</param>
+        public static void Send(byte[] packet, string IP)
         {
             var udpClient = new UdpClient();
-            udpClient.Send(packet, packet.Length, new IPEndPoint(IPAddress.Parse(text), 9));
+            udpClient.Send(packet, packet.Length, new IPEndPoint(IPAddress.Parse(IP), 9));
             udpClient.Close();
         }
 
-        public static byte[] GetMagicPacket(string s)
+        /// <summary>
+        /// Create magic packet. You can read about it here
+        /// http://en.wikipedia.org/wiki/Wake-on-LAN
+        /// or here
+        /// http://ru.wikipedia.org/wiki/Wake-on-LAN
+        /// </summary>
+        /// <param name="macAddress">mac address of remote PC.</param>
+        /// <returns>Magic packet.</returns>
+        public static byte[] GetMagicPacket(string macAddress)
         {
             var arr = new List<byte>(102);
 
-            string[] macs = s.Split(' ', ':', '-');
+            string[] macs = macAddress.Split(' ', ':', '-');
 
             for (int i = 0; i < 6; i++)
             {
@@ -36,7 +49,9 @@ namespace WakeOnLan
             return arr.ToArray();
         }
 
-        // "Antimagic" packet here is the magic packet with reversed mac address bytes.
+        /// <summary>
+        /// "Antimagic" packet here is the magic packet with reversed mac address segments.
+        /// </summary>
         public static byte[] GetAntiMagicPacket(string s)
         {
             var arr = new List<byte>(102);
