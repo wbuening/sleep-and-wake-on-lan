@@ -6,6 +6,11 @@ namespace SleepOnLan
 {
     public static class Settings
     {
+        /// <summary>
+        /// Load the action id from file.
+        /// </summary>
+        /// <param name="path">File path.</param>
+        /// <returns>Id of action which we will do.</returns>
         public static int Load(string path)
         {
             int ret = 0;

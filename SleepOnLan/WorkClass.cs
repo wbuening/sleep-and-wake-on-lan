@@ -15,7 +15,9 @@ namespace SleepOnLan
 
         public void DoWork(object obj)
         {
+            // Get list of this PS's mac addresses.
             List<string> addresses = MacAddress();
+            // Get antimagic packets for all mac addresses.
             List<byte[]> antiPackets = addresses.Select(GetAntiMagicPacket).ToList();
 
             udpClient = new UdpClient(Port);
@@ -23,9 +25,10 @@ namespace SleepOnLan
 
             while (true)
             {
+                // Wait incoming data.
                 byte[] data = udpClient.Receive(ref ep);
 
-                // If any "antimagic" packet contains our mac address
+                // Compare all values of 2 arrays. If any "antimagic" packet contains our mac address
                 if (antiPackets.Any(packet => packet.SequenceEqual(data) == true))
                 {
                     // do action.
@@ -34,11 +37,15 @@ namespace SleepOnLan
             }
         }
 
+        /// <summary>
+        /// If we close our program receive function will be still active. It will prevent program from closing so we should close udpclient first.
+        /// </summary>
         public void CloseConnection()
         {
             udpClient.Close();
         }
 
+        // Do some actions on the assumption of comboBox selected index.
         private void DoSleep()
         {
             if (State == 0)
@@ -67,7 +74,10 @@ namespace SleepOnLan
             }
         }
 
-        // Get list of all network adapters mac addresses.
+        /// <summary>
+        /// Get list of all PS's mac addresses.
+        /// </summary>
+        /// <returns></returns>
         private List<string> MacAddress()
         {
             var addresses = new List<string>();
@@ -91,12 +101,16 @@ namespace SleepOnLan
             return addresses;
         }
 
-        // "Antimagic" packet here is the magic packet with reversed mac address bytes.
-        static byte[] GetAntiMagicPacket(string s)
+        /// <summary>
+        /// "Antimagic" packet here is the magic packet with reversed mac address bytes.
+        /// </summary>
+        /// <param name="macAddress"></param>
+        /// <returns>Magic packet</returns>
+        static byte[] GetAntiMagicPacket(string macAddress)
         {
             var arr = new List<byte>(102);
 
-            string[] macs = s.Split(' ', ':', '-');
+            string[] macs = macAddress.Split(' ', ':', '-');
 
             for (int i = 0; i < 6; i++)
             {
