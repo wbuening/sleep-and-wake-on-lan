@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 using System.Threading;
-using Helpers;
 
 namespace SleepOnLan
 {
