@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace Helpers
+namespace SleepOnLan
 {
     public static class Settings
     {
