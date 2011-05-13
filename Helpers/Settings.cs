@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Windows;
 
-namespace WakeOnLan
+namespace Helpers
 {
     public static class Settings
     {
@@ -16,22 +14,16 @@ namespace WakeOnLan
         {
             var list = new List<string>();
 
-            try
+            if (File.Exists(path))
             {
-                if (File.Exists(path))
+                // If we use "using" keyword Dispose() method (same as Close() in our case) will be called automatically.
+                using (var stream = new StreamReader(path))
                 {
-                    var stream = new StreamReader(path);
                     while (!stream.EndOfStream)
                     {
                         list.Add(stream.ReadLine());
                     }
-                    
-                    stream.Close();
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
 
             return list;
@@ -39,12 +31,13 @@ namespace WakeOnLan
 
         public static void Save(string path, List<string> list)
         {
-            var stream = new StreamWriter(path);
-            foreach(var item in list)
+            using (var stream = new StreamWriter(path))
             {
-                stream.WriteLine(item);
+                foreach (var item in list)
+                {
+                    stream.WriteLine(item);
+                }
             }
-            stream.Close();
         }
     }
 }
