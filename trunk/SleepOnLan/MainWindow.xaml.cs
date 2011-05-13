@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 using System.Threading;
+using Helpers;
 
 namespace SleepOnLan
 {
@@ -22,8 +24,16 @@ namespace SleepOnLan
             workingThread = new Thread(_doWork.DoWork);
             workingThread.Start();
 
+            var list = Settings.Load(SettingsPath);
+
+            if (list.Count == 0)
+            {
+                list.Add("");
+                Settings.Save(SettingsPath, list);
+            }
+
             // Load the id of action which we will do.
-            comboBox1.SelectedIndex = Settings.Load(SettingsPath);
+            comboBox1.SelectedIndex = Int32.Parse(list[0]);
         }
 
         /// <summary>
@@ -32,7 +42,10 @@ namespace SleepOnLan
         private void comboBox1_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             _doWork.State = comboBox1.SelectedIndex;
-            Settings.Save(SettingsPath, comboBox1.SelectedIndex.ToString());
+
+            var list = new List<string>();
+            list.Add(comboBox1.SelectedIndex.ToString());
+            Settings.Save(SettingsPath, list);
         }
 
         /// <summary>

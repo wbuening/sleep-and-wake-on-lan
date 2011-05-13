@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using Helpers;
 
 namespace WakeOnLan
 {
@@ -8,21 +9,21 @@ namespace WakeOnLan
     /// </summary>
     public partial class MainWindow
     {
-        private const string Path = "Settings.ini";
+        private const string SettingsPath = "Settings.ini";
 
         public MainWindow()
         {
             InitializeComponent();
 
             // Load settings from Settings.ini. If file does not exist it will be created.
-            List<string> list = Settings.Load(Path);
+            List<string> list = Settings.Load(SettingsPath);
 
             // If file is empty we will add 2 strings into it.
             if (list.Count == 0)
             {
                 list.Add("");
                 list.Add("");
-                Settings.Save(Path, list);
+                Settings.Save(SettingsPath, list);
             }
 
             // Fill text fields in GUI.
@@ -47,11 +48,11 @@ namespace WakeOnLan
         private void textIP_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             // Load existing values.
-            List<string> list = Settings.Load(Path);
+            List<string> list = Settings.Load(SettingsPath);
             // Replace IP value with new one.
             list[0] = textIP.Text;
             // Write new settings into file.
-            Settings.Save(Path, list);
+            Settings.Save(SettingsPath, list);
         }
 
         /// <summary>
@@ -59,9 +60,9 @@ namespace WakeOnLan
         /// </summary>
         private void textMAC_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            List<string> list = Settings.Load(Path);
+            List<string> list = Settings.Load(SettingsPath);
             list[1] = textMAC.Text;
-            Settings.Save(Path, list);
+            Settings.Save(SettingsPath, list);
         }
     }
 }
