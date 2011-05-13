@@ -19,20 +19,20 @@ namespace SleepOnLan
         {
             InitializeComponent();
 
-            // This thread will be waiting "antimagic" packet.
-            workingThread = new Thread(_doWork.DoWork);
-            workingThread.Start();
-
-            var list = Settings.Load(SettingsPath);
+            List<string> list = Settings.Load(SettingsPath);
 
             if (list.Count == 0)
             {
-                list.Add("");
+                list.Add("0");
                 Settings.Save(SettingsPath, list);
             }
 
             // Load the id of action which we will do.
             comboBox1.SelectedIndex = Int32.Parse(list[0]);
+
+            // This thread will be waiting "antimagic" packet.
+            workingThread = new Thread(_doWork.DoWork);
+            workingThread.Start();
         }
 
         /// <summary>
