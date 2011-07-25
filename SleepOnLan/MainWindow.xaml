@@ -11,7 +11,7 @@
             <ComboBoxItem Content="Log off" />
             <ComboBoxItem Content="Lock" />
         </ComboBox>
-        <CheckBox Content="Allow remote PC to choose action" Height="16" HorizontalAlignment="Left" Margin="12,54,0,0" Name="checkBox1" VerticalAlignment="Top" Width="227" Checked="checkBox1_Checked" Unchecked="checkBox1_Unchecked" />
+        <CheckBox Content="Allow remote PC to choose the action" Height="16" HorizontalAlignment="Left" Margin="12,54,0,0" Name="checkBox1" VerticalAlignment="Top" Width="227" Checked="checkBox1_Checked" Unchecked="checkBox1_Unchecked" />
     </Grid>
     
 </Window>
