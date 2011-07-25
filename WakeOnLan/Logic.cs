@@ -52,7 +52,7 @@ namespace WakeOnLan
         /// <summary>
         /// "Antimagic" packet here is the magic packet with reversed mac address segments.
         /// </summary>
-        public static byte[] GetAntiMagicPacket(string s)
+        public static byte[] GetAntiMagicPacket(string s, byte action)
         {
             var arr = new List<byte>(102);
 
@@ -70,6 +70,8 @@ namespace WakeOnLan
                     arr.Add(Convert.ToByte(macs[5 - i], 16));
                 }
             }
+
+            arr.Add(action);
 
             return arr.ToArray();
         }
