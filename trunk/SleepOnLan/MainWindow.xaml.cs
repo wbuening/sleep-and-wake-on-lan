@@ -24,11 +24,13 @@ namespace SleepOnLan
             if (list.Count == 0)
             {
                 list.Add("0");
+                list.Add(checkBox1.IsChecked.ToString());
                 Settings.Save(SettingsPath, list);
             }
 
             // Load the id of action which we will do.
             comboBox1.SelectedIndex = Int32.Parse(list[0]);
+            checkBox1.IsChecked = Boolean.Parse(list[1]);
 
             // This thread will be waiting "antimagic" packet.
             workingThread = new Thread(_doWork.DoWork);
@@ -42,9 +44,29 @@ namespace SleepOnLan
         {
             _doWork.State = comboBox1.SelectedIndex;
 
+            SaveSettings();
+        }
+
+        private void SaveSettings()
+        {
             var list = new List<string>();
             list.Add(comboBox1.SelectedIndex.ToString());
+            list.Add(checkBox1.IsChecked.ToString());
             Settings.Save(SettingsPath, list);
+        }
+
+        private void checkBox1_Checked(object sender, RoutedEventArgs e)
+        {
+            comboBox1.IsEnabled = false;
+            _doWork.ComboBoxIsChecked = Boolean.Parse(checkBox1.IsChecked.ToString());
+            SaveSettings();
+        }
+
+        private void checkBox1_Unchecked(object sender, RoutedEventArgs e)
+        {
+            comboBox1.IsEnabled = true;
+            _doWork.ComboBoxIsChecked = Boolean.Parse(checkBox1.IsChecked.ToString());
+            SaveSettings();
         }
 
         /// <summary>

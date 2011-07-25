@@ -1,13 +1,22 @@
 ﻿<Window x:Class="WakeOnLan.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="WakeOnLan" Height="175" Width="211" ResizeMode="NoResize" Icon="/WakeOnLan;component/Icon.jpg">
+        Title="WakeOnLan" Height="220" Width="255" ResizeMode="NoResize" Icon="/WakeOnLan;component/Icon.jpg">
     <Grid>
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="54,17,0,0" Name="textIP" VerticalAlignment="Top" Width="120" TextChanged="textIP_TextChanged" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="54,51,0,0" Name="textMAC" VerticalAlignment="Top" Width="120" TextChanged="textMAC_TextChanged" />
-        <Button Content="Wake" Height="23" HorizontalAlignment="Left" Margin="12,101,0,0" Name="buttonWake" VerticalAlignment="Top" Width="75" Click="ButtonWakeClick" ToolTip="Send magic packet" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="70,17,0,0" Name="textIP" VerticalAlignment="Top" Width="120" TextChanged="textIP_TextChanged" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="70,51,0,0" Name="textMAC" VerticalAlignment="Top" Width="120" TextChanged="textMAC_TextChanged" />
+        <Button Content="Wake" Height="23" HorizontalAlignment="Left" Margin="38,146,0,0" Name="buttonWake" VerticalAlignment="Top" Width="75" Click="ButtonWakeClick" ToolTip="Send magic packet" />
         <Label Content="IP" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
         <Label Content="MAC" Height="28" HorizontalAlignment="Left" Margin="12,46,0,0" Name="label2" VerticalAlignment="Top" />
-        <Button Content="Sleep" Height="23" HorizontalAlignment="Left" Margin="99,101,0,0" Name="buttonSleep" VerticalAlignment="Top" Width="75" Click="buttonSleep_Click" ToolTip="Send antimagic packet" />
+        <Button Content="DoAction" Height="23" HorizontalAlignment="Left" Margin="125,146,0,0" Name="buttonDoAction" VerticalAlignment="Top" Width="75" ToolTip="Send antimagic packet" Click="buttonDoAction_Click" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="70,89,0,0" Name="comboBox1" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox1_SelectionChanged">
+            <ComboBoxItem Content="Sleep" />
+            <ComboBoxItem Content="Nibernate" />
+            <ComboBoxItem Content="Reboot" />
+            <ComboBoxItem Content="Shutdown" />
+            <ComboBoxItem Content="Log off" />
+            <ComboBoxItem Content="Lock" />
+        </ComboBox>
+        <Label Content="Action" Height="28" HorizontalAlignment="Left" Margin="12,84,0,0" Name="label3" VerticalAlignment="Top" />
     </Grid>
 </Window>

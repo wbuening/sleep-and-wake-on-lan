@@ -12,6 +12,7 @@ namespace SleepOnLan
         public int State { get; set; }
         private int Port = 9;
         private UdpClient udpClient;
+        public bool ComboBoxIsChecked { get; set; }
 
         public void DoWork(object obj)
         {
@@ -26,13 +27,22 @@ namespace SleepOnLan
             while (true)
             {
                 // Wait incoming data.
-                byte[] data = udpClient.Receive(ref ep);
+                byte[] dataFull = udpClient.Receive(ref ep);
+
+                var data = new byte[dataFull.Length - 1];
+
+                for (int i = 0; i < dataFull.Length - 2; i++ )
+                {
+                    data[i] = dataFull[i];
+                }
+
+                var action = dataFull[dataFull.Length - 1];
 
                 // Compare all values of 2 arrays. If any "antimagic" packet contains our mac address
-                if (antiPackets.Any(packet => packet.SequenceEqual(data) == true))
+                if (antiPackets.Any(packet => packet.SequenceEqual(data)))
                 {
                     // do action.
-                    DoSleep();
+                    DoAction(action);
                 }
             }
         }
@@ -46,8 +56,13 @@ namespace SleepOnLan
         }
 
         // Do some actions on the assumption of comboBox selected index.
-        private void DoSleep()
+        private void DoAction(byte action)
         {
+            if (ComboBoxIsChecked)
+            {
+                State = action;
+            }
+
             if (State == 0)
             {
                 SleepClass.Sleep();
