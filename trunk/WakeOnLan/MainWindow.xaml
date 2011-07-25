@@ -8,7 +8,7 @@
         <Button Content="Wake" Height="23" HorizontalAlignment="Left" Margin="38,146,0,0" Name="buttonWake" VerticalAlignment="Top" Width="75" Click="ButtonWakeClick" ToolTip="Send magic packet" />
         <Label Content="IP" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
         <Label Content="MAC" Height="28" HorizontalAlignment="Left" Margin="12,46,0,0" Name="label2" VerticalAlignment="Top" />
-        <Button Content="DoAction" Height="23" HorizontalAlignment="Left" Margin="125,146,0,0" Name="buttonDoAction" VerticalAlignment="Top" Width="75" ToolTip="Send antimagic packet" Click="buttonDoAction_Click" />
+        <Button Content="Do action" Height="23" HorizontalAlignment="Left" Margin="125,146,0,0" Name="buttonDoAction" VerticalAlignment="Top" Width="75" ToolTip="Send antimagic packet" Click="buttonDoAction_Click" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="70,89,0,0" Name="comboBox1" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox1_SelectionChanged">
             <ComboBoxItem Content="Sleep" />
             <ComboBoxItem Content="Nibernate" />
