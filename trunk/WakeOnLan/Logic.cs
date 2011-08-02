@@ -15,7 +15,7 @@ namespace WakeOnLan
         public static void Send(byte[] packet, string IP)
         {
             var udpClient = new UdpClient();
-            udpClient.Send(packet, packet.Length, new IPEndPoint(IPAddress.Parse(IP), 9));
+            var bytes = udpClient.Send(packet, packet.Length, new IPEndPoint(IPAddress.Parse(IP), 9));
             udpClient.Close();
         }
 
@@ -65,13 +65,12 @@ namespace WakeOnLan
 
             for (int j = 0; j < 16; j++)
             {
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     arr.Add(Convert.ToByte(macs[5 - i], 16));
                 }
+                arr.Add(action);
             }
-
-            arr.Add(action);
 
             return arr.ToArray();
         }

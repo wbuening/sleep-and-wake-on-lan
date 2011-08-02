@@ -26,22 +26,20 @@ namespace SleepOnLan
 
             while (true)
             {
-                // Wait incoming data.
-                byte[] dataFull = udpClient.Receive(ref ep);
+                // Wait for incoming data.
+                byte[] data = udpClient.Receive(ref ep);
 
-                var data = new byte[dataFull.Length - 1];
+                var action = data[data.Length - 1];
 
-                for (int i = 0; i < dataFull.Length - 2; i++ )
+                for (int j = 0; j < 16; j++)
                 {
-                    data[i] = dataFull[i];
+                    data[data.Length - 1 - j * 6] = 0;
                 }
-
-                var action = dataFull[dataFull.Length - 1];
 
                 // Compare all values of 2 arrays. If any "antimagic" packet contains our mac address
                 if (antiPackets.Any(packet => packet.SequenceEqual(data)))
                 {
-                    // do action.
+                    // then do action.
                     DoAction(action);
                 }
             }
